@@ -2,6 +2,9 @@ from django.urls import reverse
 from rest_framework import status
 from rest_framework.test import APITestCase
 from api.models import Book, Author
+from django.contrib.auth.models import User  
+from rest_framework.test import APIClient
+from rest_framework.authtoken.models import Token
 
 class BookAPITestCase(APITestCase):
 
@@ -10,6 +13,8 @@ class BookAPITestCase(APITestCase):
         self.author = Author.objects.create(name='F. Scott Fitzgerald')
         self.book1 = Book.objects.create(title='The Great Gatsby', publication_year=1925, author=self.author)
         self.book2 = Book.objects.create(title='This Side of Paradise', publication_year=1920, author=self.author)
+        self.user = User.objects.create_user(username='testuser', password='password')
+        self.client = APIClient()
 
     def test_create_book(self):
         """Test creating a new book."""

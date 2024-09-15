@@ -15,6 +15,7 @@ class BookAPITestCase(APITestCase):
         self.book2 = Book.objects.create(title='This Side of Paradise', publication_year=1920, author=self.author)
         self.user = User.objects.create_user(username='testuser', password='password')
         self.client = APIClient()
+        self.client.login(username='testuser', password='password')
 
     def test_create_book(self):
         """Test creating a new book."""
